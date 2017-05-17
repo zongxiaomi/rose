@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.weavey.loading.lib.LoadingLayout
+    android:id="@+id/loading"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="zong.xiao.mi.demosource.aotu.activity.HtmlParseActivity">
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/html_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+
+    />
+</com.weavey.loading.lib.LoadingLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/loading"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    tools:context=".business.home.activity.HtmlParseActivity">
+
+    <ImageView
+        android:id="@+id/category_img"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dp_10"
+        android:src="@mipmap/icon_launcher"/>
+    <TextView
+        android:id="@+id/video_count"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_alignLeft="@+id/category_img"
+        android:layout_marginTop="10dp"
+        android:background="#EE232F"
+        android:gravity="center"
+        android:text="1234"
+        android:textColor="@color/c1"/>
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/category_img"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_toRightOf="@+id/video_count"
+        android:text="偷拍自拍" android:textColor="#ee232f"/>
+</RelativeLayout>
