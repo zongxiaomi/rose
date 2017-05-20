@@ -9,7 +9,7 @@ public class GlobalConfig {
 
   private static final String CLIENT_VERSION = "client_version";
   private static Context appContext;
-  private static String rootDir = "wanda";
+  private static String rootDir = "wandan";
   private static boolean debug = false;
   private static boolean sIsUpgrade;
 

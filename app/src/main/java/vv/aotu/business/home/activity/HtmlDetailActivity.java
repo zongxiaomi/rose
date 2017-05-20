@@ -68,7 +68,6 @@ public class HtmlDetailActivity extends AppCompatActivity {
     HtmlAdapter adapter = new HtmlAdapter(R.layout.item_html_view);
     adapter.addHeaderView(ViewUtils.newInstance(this, R.layout.html_header_view));
     adapter.setNewData(list);
-
     mDetailRv.setAdapter(adapter);
 
 

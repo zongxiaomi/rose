@@ -4,8 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
-import com.weavey.loading.lib.LoadingLayout;
+import android.view.View;
 
 import org.jsoup.nodes.Document;
 
@@ -14,8 +13,10 @@ import java.util.List;
 import vv.aotu.Constants;
 import vv.aotu.R;
 import vv.aotu.business.home.adapter.HtmlGridAdapter;
+import vv.aotu.business.home.loading.LoadingLayout;
 import vv.aotu.business.home.module.HtmlModule;
 import vv.aotu.business.home.util.HtmlDataProcessUtil;
+
 
 
 public class HtmlGridActivity extends AppCompatActivity {
@@ -38,11 +39,13 @@ public class HtmlGridActivity extends AppCompatActivity {
     task2.setDataCallback(new HtmlAsyncTask.Callback() {
       @Override
       public void onDataCallback(Document document) {
-        mLoadingLayout.setStatus(LoadingLayout.Success);
-        List<HtmlModule> htmlModules = HtmlDataProcessUtil.parseGridList(document);
-
-        mAdapter.setNewData(htmlModules);
-
+        if (document == null) {
+          mLoadingLayout.setStatus(LoadingLayout.Error);
+        } else {
+          mLoadingLayout.setStatus(LoadingLayout.Success);
+          List<HtmlModule> htmlModules = HtmlDataProcessUtil.parseGridList(document);
+          mAdapter.setNewData(htmlModules);
+        }
       }
     });
     task2.execute(Constants.CATEGORIES);
@@ -51,6 +54,12 @@ public class HtmlGridActivity extends AppCompatActivity {
 
   private void initRecycleView() {
     mLoadingLayout = (LoadingLayout) findViewById(R.id.loading);
+    mLoadingLayout.setOnReloadListener(new LoadingLayout.OnReloadListener() {
+      @Override
+      public void onReload(View v) {
+        getCategories();
+      }
+    });
     mRecyclerView = (RecyclerView) findViewById(R.id.html_grid);
     mAdapter = new HtmlGridAdapter(R.layout.item_html_grid);
     mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));

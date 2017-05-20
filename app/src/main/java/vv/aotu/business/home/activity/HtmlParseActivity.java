@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.weavey.loading.lib.LoadingLayout;
 
 import org.jsoup.nodes.Document;
 
@@ -17,6 +16,7 @@ import java.util.List;
 
 import vv.aotu.R;
 import vv.aotu.business.home.adapter.HtmlAdapter;
+import vv.aotu.business.home.loading.LoadingLayout;
 import vv.aotu.business.home.module.HtmlModule;
 import vv.aotu.business.home.util.HtmlDataProcessUtil;
 
@@ -50,10 +50,14 @@ public class HtmlParseActivity extends AppCompatActivity {
     task.setDataCallback(new HtmlAsyncTask.Callback() {
       @Override
       public void onDataCallback(Document document) {
-        mLoadingLayout.setStatus(LoadingLayout.Success);
-        List<HtmlModule> list = HtmlDataProcessUtil.parseListData(document);
-        mAdapter.addData(list);
-        if (list.size() < 18) mAdapter.setEnableLoadMore(false);
+        if (document == null) {
+          mLoadingLayout.setStatus(LoadingLayout.Error);
+        } else {
+          mLoadingLayout.setStatus(LoadingLayout.Success);
+          List<HtmlModule> list = HtmlDataProcessUtil.parseListData(document);
+          mAdapter.addData(list);
+          if (list.size() < 18) mAdapter.setEnableLoadMore(false);
+        }
       }
     });
     task.execute(url);
