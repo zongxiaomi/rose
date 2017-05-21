@@ -2,7 +2,7 @@ package vv.aotu;
 
 import android.app.Application;
 
-import vv.aotu.base.util.GlobalConfig;
+import vv.aotu.util.GlobalConfig;
 import vv.aotu.business.home.loading.LoadingLayout;
 
 

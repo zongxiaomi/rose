@@ -53,7 +53,7 @@ public class HtmlAsyncTask extends AsyncTask<String, Integer, Document> {
     super.onPreExecute();
   }
 
-  interface Callback {
+  public interface Callback {
     @MainThread
     void onDataCallback(Document document);
 

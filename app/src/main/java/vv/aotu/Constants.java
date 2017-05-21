@@ -9,5 +9,6 @@ public class Constants {
     private Constants() {
     }
 
-    public static final String CATEGORIES="";//填上需要的url
+    public static final String CATEGORIES="";//分类数据
+    public static final String HOME="";//首页数据
 }

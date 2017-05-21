@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
@@ -37,6 +38,12 @@ public class HtmlParseActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_html_parse);
     mLoadingLayout = (LoadingLayout) findViewById(R.id.loading);
+    mLoadingLayout.setOnReloadListener(new LoadingLayout.OnReloadListener() {
+      @Override
+      public void onReload(View v) {
+        getHtmlData(mUrl);
+      }
+    });
     mUrl = getIntent().getStringExtra("url");
     initView();
     getHtmlData(mUrl);
@@ -69,12 +76,11 @@ public class HtmlParseActivity extends AppCompatActivity {
     String[] split = mUrl.split("/");// ["http:","","www.xxx.com","3pqj"]
     String host = split[0] + "//" + split[2] + "/";
     String path = split[3] + "/recent/" + page;
-    return host + path;
 
+    return host + path;
   }
 
   private void initView() {
-
     mRv = (RecyclerView) findViewById(R.id.html_rv);
     mRv.setLayoutManager(new LinearLayoutManager(this));
     mAdapter = new HtmlAdapter(R.layout.item_html_view);
