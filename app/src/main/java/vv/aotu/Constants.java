@@ -11,5 +11,6 @@ public class Constants {
 
     public static final String CATEGORIES="";//分类数据
     public static final String HOME="";//首页数据
+//    public static final String HOME="";//首页数据
 
 }
