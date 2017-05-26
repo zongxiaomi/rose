@@ -40,7 +40,6 @@ public class HtmlAsyncTask extends AsyncTask<String, Integer, Document> {
     if (mCallback != null) {
       mCallback.onDataCallback(document);
     }
-
   }
 
   @Override
