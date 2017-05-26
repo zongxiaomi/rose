@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="colorPrimary">@color/c9</item>
+        <item name="colorPrimaryDark">@color/theme_title_text_color</item>
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:typeface">normal</item>
+        <item name="actionMenuTextColor">@color/c1</item>
+        <item name="android:textColorPrimary">@color/c7</item>
+    </style>
+
+
+    <style name="AppTheme.Transparent" parent="AppTheme">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+
+    <style name="loading_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/theme_gray_dark</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+</resources>

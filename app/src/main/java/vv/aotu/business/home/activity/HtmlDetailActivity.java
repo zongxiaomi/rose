@@ -15,7 +15,8 @@ import java.util.List;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 import vv.aotu.R;
-import vv.aotu.base.util.ViewUtils;
+import vv.aotu.util.MainThreadPostUtils;
+import vv.aotu.util.ViewUtils;
 import vv.aotu.business.home.adapter.HtmlAdapter;
 import vv.aotu.business.home.module.HtmlModule;
 import vv.aotu.business.home.util.HtmlDataProcessUtil;
@@ -48,7 +49,10 @@ public class HtmlDetailActivity extends AppCompatActivity {
       @Override
       public void onDataCallback(Document document) {
 
-
+        if (document == null) {
+          MainThreadPostUtils.toast("获取数据失败，请返回重试");
+          return;
+        }
         bindToVideo(document);
         bindToRecycleView(document);
       }
@@ -68,7 +72,6 @@ public class HtmlDetailActivity extends AppCompatActivity {
     HtmlAdapter adapter = new HtmlAdapter(R.layout.item_html_view);
     adapter.addHeaderView(ViewUtils.newInstance(this, R.layout.html_header_view));
     adapter.setNewData(list);
-
     mDetailRv.setAdapter(adapter);
 
 
@@ -79,6 +82,7 @@ public class HtmlDetailActivity extends AppCompatActivity {
     HtmlModule module = HtmlDataProcessUtil.parseDetail(document);
     mVideoView.setUp(module.getVideoSrc(), JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL,
         module.getTitle());
+    mVideoView.startVideo();
 
   }
 

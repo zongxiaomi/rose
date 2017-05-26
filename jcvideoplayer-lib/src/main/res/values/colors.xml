@@ -8,22 +8,4 @@
     <color name="theme_title_text_color">#000000</color>
     <!-- 底部tab颜色 -->
     <color name="bottom_tab_color">#E1E2E3</color>
-    <!-- 主要用于导航文字及按钮文字 -->
-    <color name="c1">#ffffff</color>
-    <!-- 主要用于标题及正文 较灰 -->
-    <color name="c2">#333333</color>
-    <!-- 主要用于副标题 稍灰 -->
-    <color name="c3">#666666</color>
-    <!-- 主要用于提示性文字 浅灰 -->
-    <color name="c4">#999999</color>
-    <!-- 主要用于价格及重要文字 血红  -->
-    <color name="c5">#c22e26</color>
-    <!-- 主要用于较重要文字 湖绿色-->
-    <color name="c6">#37c7fd</color>
-    <!-- 用于短标题 黑色-->
-    <color name="c7">#000000</color>
-    <!-- 底部导航 蓝色 -->
-    <color name="c9">#02aff0</color>
-    <color name="c10">#444444</color>
-    <color name="c0">#ffe063</color>
 </resources>

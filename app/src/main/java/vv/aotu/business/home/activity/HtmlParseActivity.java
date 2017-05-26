@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.weavey.loading.lib.LoadingLayout;
 
 import org.jsoup.nodes.Document;
 
@@ -17,6 +17,7 @@ import java.util.List;
 
 import vv.aotu.R;
 import vv.aotu.business.home.adapter.HtmlAdapter;
+import vv.aotu.business.home.loading.LoadingLayout;
 import vv.aotu.business.home.module.HtmlModule;
 import vv.aotu.business.home.util.HtmlDataProcessUtil;
 
@@ -37,6 +38,12 @@ public class HtmlParseActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_html_parse);
     mLoadingLayout = (LoadingLayout) findViewById(R.id.loading);
+    mLoadingLayout.setOnReloadListener(new LoadingLayout.OnReloadListener() {
+      @Override
+      public void onReload(View v) {
+        getHtmlData(mUrl);
+      }
+    });
     mUrl = getIntent().getStringExtra("url");
     initView();
     getHtmlData(mUrl);
@@ -50,10 +57,14 @@ public class HtmlParseActivity extends AppCompatActivity {
     task.setDataCallback(new HtmlAsyncTask.Callback() {
       @Override
       public void onDataCallback(Document document) {
-        mLoadingLayout.setStatus(LoadingLayout.Success);
-        List<HtmlModule> list = HtmlDataProcessUtil.parseListData(document);
-        mAdapter.addData(list);
-        if (list.size() < 18) mAdapter.setEnableLoadMore(false);
+        if (document == null) {
+          mLoadingLayout.setStatus(LoadingLayout.Error);
+        } else {
+          mLoadingLayout.setStatus(LoadingLayout.Success);
+          List<HtmlModule> list = HtmlDataProcessUtil.parseListData(document);
+          mAdapter.addData(list);
+          if (list.size() < 18) mAdapter.setEnableLoadMore(false);
+        }
       }
     });
     task.execute(url);
@@ -65,12 +76,11 @@ public class HtmlParseActivity extends AppCompatActivity {
     String[] split = mUrl.split("/");// ["http:","","www.xxx.com","3pqj"]
     String host = split[0] + "//" + split[2] + "/";
     String path = split[3] + "/recent/" + page;
-    return host + path;
 
+    return host + path;
   }
 
   private void initView() {
-
     mRv = (RecyclerView) findViewById(R.id.html_rv);
     mRv.setLayoutManager(new LinearLayoutManager(this));
     mAdapter = new HtmlAdapter(R.layout.item_html_view);
