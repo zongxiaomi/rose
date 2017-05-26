@@ -6,6 +6,7 @@ package vv.aotu.business.home.module;
 
 public class HtmlModule {
 
+  int _id;
   String img;
   String title;
   String time;
@@ -13,6 +14,14 @@ public class HtmlModule {
   String browserCount;
   String uploadTime;
   String videoSrc;
+
+  public int getId() {
+    return _id;
+  }
+
+  public void setId(int _id) {
+    this._id = _id;
+  }
 
   public void setVideoSrc(String videoSrc) {
     this.videoSrc = videoSrc;
