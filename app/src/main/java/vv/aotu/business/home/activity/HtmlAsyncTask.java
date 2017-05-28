@@ -2,6 +2,7 @@ package vv.aotu.business.home.activity;
 
 import android.os.AsyncTask;
 import android.support.annotation.MainThread;
+import android.text.TextUtils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,6 +20,9 @@ public class HtmlAsyncTask extends AsyncTask<String, Integer, Document> {
   protected Document doInBackground(String... params) {
     String url = params[0];
     Document document = null;
+    if (TextUtils.isEmpty(url)) {
+      return null;
+    }
     try {
       document = Jsoup.connect(url).timeout(10000).get();
 

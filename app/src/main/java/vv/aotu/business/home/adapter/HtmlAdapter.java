@@ -46,8 +46,8 @@ public class HtmlAdapter extends BaseQuickAdapter<HtmlModule, BaseViewHolder> {
     helper.getConvertView().setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        String href = item.getHref();
-        HtmlDetailActivity.launch(v.getContext(), href);
+//        String href = item.getHref();
+        HtmlDetailActivity.launch(v.getContext(), item);
       }
     });
 

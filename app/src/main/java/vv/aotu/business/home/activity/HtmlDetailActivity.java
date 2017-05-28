@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import org.jsoup.nodes.Document;
 
@@ -15,11 +17,12 @@ import java.util.List;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 import vv.aotu.R;
-import vv.aotu.util.MainThreadPostUtils;
-import vv.aotu.util.ViewUtils;
 import vv.aotu.business.home.adapter.HtmlAdapter;
 import vv.aotu.business.home.module.HtmlModule;
 import vv.aotu.business.home.util.HtmlDataProcessUtil;
+import vv.aotu.util.DBManager;
+import vv.aotu.util.MainThreadPostUtils;
+import vv.aotu.util.ViewUtils;
 
 
 public class HtmlDetailActivity extends AppCompatActivity {
@@ -27,22 +30,53 @@ public class HtmlDetailActivity extends AppCompatActivity {
   private String mUrl;
   private JCVideoPlayerStandard mVideoView;
   private RecyclerView mDetailRv;
+  private CheckBox mCollection;
+  private DBManager mDBManager;
+  private HtmlModule mHtmlModule;
+  private int mId;
+  private boolean mIsCollection;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_html_detail);
+    mDBManager = new DBManager(this);
     initParamData();
+    initCollection();
     initView();
-
+    initListener();
     getHtmlDetailData();
+  }
 
+  // 初始化该内容是否是已经收藏过的内容
+  public void initCollection() {
+    List<Integer> idList = mDBManager.getIdFromSQLit();
+    int size = idList.size();
+    if (size <= 0) {
+      mIsCollection =  false;
+    }
+    for (int i = 0; i < size; i++) {
+      if (idList.get(i) == mId){
+        mIsCollection =  true;
+      }
+    }
+  }
 
-
+  // 收藏按钮的监听事件
+  private void initListener() {
+    mCollection.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+          mDBManager.addData(mHtmlModule);// add 到数据库中
+        }else {
+          mDBManager.deleteData(mId);// 从数据库中删除
+        }
+      }
+    });
   }
 
   private void getHtmlDetailData() {
-
 
     HtmlAsyncTask task2 = new HtmlAsyncTask();
     task2.setDataCallback(new HtmlAsyncTask.Callback() {
@@ -67,15 +101,10 @@ public class HtmlDetailActivity extends AppCompatActivity {
     List<HtmlModule> list = HtmlDataProcessUtil.parseListData(document);
 
     mDetailRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
-
     HtmlAdapter adapter = new HtmlAdapter(R.layout.item_html_view);
     adapter.addHeaderView(ViewUtils.newInstance(this, R.layout.html_header_view));
     adapter.setNewData(list);
     mDetailRv.setAdapter(adapter);
-
-
-
   }
 
   private void bindToVideo(Document document) {
@@ -87,14 +116,19 @@ public class HtmlDetailActivity extends AppCompatActivity {
   }
 
   private void initParamData() {
-    mUrl = getIntent().getStringExtra("url");
+    mHtmlModule = (HtmlModule) getIntent().getSerializableExtra("module");
+    if (null == mHtmlModule) {
+      return ;
+    }
+    mUrl = mHtmlModule.getHref();
+    mId = mHtmlModule.getId();
   }
 
   private void initView() {
     mVideoView = (JCVideoPlayerStandard) findViewById(R.id.videoView);
     mDetailRv = (RecyclerView) findViewById(R.id.detail_recycle_view);
-
-
+    mCollection = (CheckBox) findViewById(R.id.cb_collection);
+    mCollection.setChecked(mIsCollection);
   }
 
   @Override
@@ -111,9 +145,9 @@ public class HtmlDetailActivity extends AppCompatActivity {
     JCVideoPlayer.releaseAllVideos();
   }
 
-  public static void launch(Context context, String url) {
+  public static void launch(Context context, HtmlModule module) {
     Intent intent = new Intent(context, HtmlDetailActivity.class);
-    intent.putExtra("url", url);
+    intent.putExtra("module", module);
     if (!(context instanceof Activity)) {
       intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     }

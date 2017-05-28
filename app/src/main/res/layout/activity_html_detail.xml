@@ -1,23 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-   >
+    android:layout_height="match_parent">
 
-    <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
-        android:id="@+id/videoView"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/detail_recycle_view"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:scrollbars="vertical"/>
+        android:orientation="vertical">
 
 
-</LinearLayout>
+        <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/detail_recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:scrollbars="vertical"/>
+
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/cb_collection"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/dp_40"
+        android:button="@null"
+        android:background="@drawable/collection_icon_selector"
+        android:layout_width="40dp"
+        android:layout_height="40dp"/>
+
+</RelativeLayout>

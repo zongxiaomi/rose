@@ -38,6 +38,24 @@ public class DBManager {
     mDBHelper.close();
   }
 
+  public void deleteData(int id){
+    mDBHelper.delete(id);
+  }
+
+  // 得到数据库中所有的_id所对应的值
+  public List<Integer> getIdFromSQLit(){
+    List<Integer> idList = new ArrayList<>();
+    Cursor cursor  = mDBHelper.query();
+    while (cursor.moveToNext()) {
+      int id = cursor.getInt(cursor.getColumnIndex("_id"));
+      idList.add(id);
+    }
+    mDBHelper.close();
+    cursor.close();
+    return idList;
+  }
+
+  // 得到数据库中的所有数据
   public List<HtmlModule> getHtmlModuleList() {
     List<HtmlModule> moduleList = new ArrayList<>();
     Cursor cursor = mDBHelper.query();

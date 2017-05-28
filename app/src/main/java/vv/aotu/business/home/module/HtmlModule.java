@@ -1,12 +1,15 @@
 package vv.aotu.business.home.module;
 
+import android.text.TextUtils;
+
+import java.io.Serializable;
+
 /**
  * Created by mi on 2017/5/7.
  */
 
-public class HtmlModule {
+public class HtmlModule implements Serializable {
 
-  int _id;
   String img;
   String title;
   String time;
@@ -14,13 +17,37 @@ public class HtmlModule {
   String browserCount;
   String uploadTime;
   String videoSrc;
+  String idInfo;
+  int id;
+  boolean isCollection;// 是否是收藏过的
 
-  public int getId() {
-    return _id;
+  public void setCollection(boolean isCollection){
+    this.isCollection = isCollection;
   }
 
-  public void setId(int _id) {
-    this._id = _id;
+  public boolean isCollection(){
+    return isCollection;
+  }
+
+  public void setIdInfo(String idInfo) {
+    this.idInfo = idInfo;
+  }
+
+  public void setId(int id){
+    this.id = id;
+  }
+
+  // 解析得到处理每个model里面的唯一id
+  public int getId() {
+    if (TextUtils.isEmpty(idInfo)) {
+      return id;
+    }
+    String string;
+    try {
+      string = idInfo.substring(1, 5);
+      id = Integer.valueOf(string);
+    } catch (Exception ignored) {}
+    return id;
   }
 
   public void setVideoSrc(String videoSrc) {
@@ -78,4 +105,5 @@ public class HtmlModule {
   public void setTime(String time) {
     this.time = time;
   }
+
 }

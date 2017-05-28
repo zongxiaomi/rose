@@ -10,6 +10,7 @@ import android.widget.TextView;
 import vv.aotu.R;
 import vv.aotu.base.BaseFragment;
 import vv.aotu.base.BaseNavigationActivity;
+import vv.aotu.business.home.fragment.CollectionFragment;
 import vv.aotu.business.home.fragment.EmptyFragment;
 import vv.aotu.business.home.fragment.HomeFragment;
 
@@ -35,7 +36,7 @@ public class HomeActivity extends BaseNavigationActivity {
               return true;
             case R.id.navigation_fav:
               mFragment = (BaseFragment) Fragment.instantiate(HomeActivity.this,
-                  EmptyFragment.class.getName(), null);
+                  CollectionFragment.class.getName(), null);
               replaceFragment(mFragment);
               return true;
             case R.id.navigation_home:

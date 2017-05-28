@@ -54,6 +54,9 @@ public class HtmlDataProcessUtil {
      */
 
     public static List<HtmlModule> parseListData(Document document) {
+        if (null == document) {
+            return null;
+        }
         List<HtmlModule> list = new ArrayList<>();
 
         Elements select = document.select("li[id]").select("a[href]");
@@ -68,12 +71,14 @@ public class HtmlDataProcessUtil {
             String uploadTime = element.select("span.video-added").text();
             String title = img.attr("alt");
             String imgUrl = img.attr("src");
+            String idInfo = element.attr("href");
             module.setBrowserCount(browserCount);
             module.setTitle(title);
             module.setImg(imgUrl);
             module.setHref(href);
             module.setTime(time);
             module.setUploadTime(uploadTime);
+            module.setIdInfo(idInfo);
             list.add(module);
 
         }

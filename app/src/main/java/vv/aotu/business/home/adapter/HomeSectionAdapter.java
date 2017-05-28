@@ -53,8 +53,8 @@ public class HomeSectionAdapter extends BaseSectionQuickAdapter<HomeSectionEntry
     helper.getConvertView().setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        String href = item.getHref();
-        HtmlDetailActivity.launch(v.getContext(), href);
+//        String href = item.getHref();
+        HtmlDetailActivity.launch(v.getContext(), item);
       }
     });
 

@@ -48,7 +48,6 @@ public class HtmlParseActivity extends AppCompatActivity {
     initView();
     getHtmlData(mUrl);
 
-
   }
 
   private void getHtmlData(String url) {

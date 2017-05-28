@@ -56,8 +56,6 @@ public class HtmlGridFragment extends BaseFragment {
     mAdapter = new HtmlGridAdapter(R.layout.item_html_grid);
     mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
     mRecyclerView.setAdapter(mAdapter);
-
-
   }
 
 
